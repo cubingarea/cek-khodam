@@ -53,7 +53,10 @@
       <br />
       <br />
       <div class="btnreset btn btn-danger" onclick="reset()">RESET</div>
-      <h3>Khodam kamu adalah:<span id="khodam"></span></h3>
+      <div class="showKhodam">
+        <h3 id="message" style="color: red"></h3>
+        <h3>Khodam kamu adalah:<span id="khodam"></span></h3>
+      </div>
     </div>
     <script>
       function cekKhodam() {
@@ -141,16 +144,26 @@
           "Kumbang Kepo",
         ];
 
-        document.getElementById("nama").value = "";
+        const namaInput = document.getElementById("nama").value.trim();
+        const message = document.getElementById("message");
+        const khodamElement = document.getElementById("khodam");
 
-        const randomIndex = Math.floor(Math.random() * data.length);
-        const randomKhodam = data[randomIndex];
-        document.getElementById("khodam").textContent = ` ${randomKhodam}`;
+        if (namaInput === "") {
+          message.textContent = "Harap isi nama anda";
+          khodamElement.textContent = "";
+        } else {
+          const randomIndex = Math.floor(Math.random() * data.length);
+          const randomKhodam = data[randomIndex];
+          message.textContent = "";
+          khodamElement.textContent = ` ${randomKhodam}`;
+          document.getElementById("nama").value = "";
+        }
       }
 
       function reset() {
         document.getElementById("nama").value = "";
-        document.getElementById("khodam").innerHTML = "";
+        document.getElementById("khodam").textContent = "";
+        document.getElementById("message").textContent = "";
       }
     </script>
   </body>
